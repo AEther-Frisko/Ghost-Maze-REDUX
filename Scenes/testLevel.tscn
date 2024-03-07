@@ -38,7 +38,9 @@ shape = SubResource("CapsuleShape3D_edpa3")
 [node name="Head" type="Node3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Player/Head"]
+[node name="HeadBobber" type="Node3D" parent="Player/Head"]
+
+[node name="Camera3D" type="Camera3D" parent="Player/Head/HeadBobber"]
 
 [node name="Env" type="Node3D" parent="."]
 

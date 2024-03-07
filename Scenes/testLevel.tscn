@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_iaf0d"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_edpa3"]
+height = 1.7
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xpvbl"]
 sky_top_color = Color(0.407843, 0.478431, 0.576471, 1)

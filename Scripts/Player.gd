@@ -2,6 +2,8 @@ extends CharacterBody3D
 
 @onready var head = $Head
 @onready var headBobber = $Head/HeadBobber
+@onready var timer = $Timer
+@onready var footstepSFX = $Footsteps
 
 # speed vars
 const WALK_SPEED = 5.0
@@ -67,6 +69,7 @@ func _physics_process(delta):
 	if sprinting:
 		headBobCurrentIntensity = HEAD_BOB_SPRINT_INTENSITY
 		headBobIndex += HEAD_BOB_SPRINT_SPEED * delta
+
 	elif walking:
 		headBobCurrentIntensity = HEAD_BOB_WALK_INTENSITY
 		headBobIndex += HEAD_BOB_WALK_SPEED * delta
@@ -89,5 +92,15 @@ func _physics_process(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, currentSpeed)
 		velocity.z = move_toward(velocity.z, 0, currentSpeed)
-
+	
+	# footstep sounds
+	if Input.is_action_pressed("move_forward") or Input.is_action_pressed("move_backwards") or Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
+		if timer.time_left <= 0:
+			if sprinting:
+				footstepSFX.pitch_scale = randf_range(0.8, 1.2)
+			elif walking:
+				footstepSFX.pitch_scale = randf_range(0.4, 0.7)
+			footstepSFX.play()
+			timer.start(0.25)
+	
 	move_and_slide()

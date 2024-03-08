@@ -97,9 +97,10 @@ func _physics_process(delta):
 	if Input.is_action_pressed("move_forward") or Input.is_action_pressed("move_backwards") or Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
 		if timer.time_left <= 0:
 			if sprinting:
-				footstepSFX.pitch_scale = randf_range(0.8, 1.2)
+				footstepSFX.volume_db = randf_range(-12, -15)
 			elif walking:
-				footstepSFX.pitch_scale = randf_range(0.4, 0.7)
+				footstepSFX.volume_db = randf_range(-20, -17)
+			footstepSFX.pitch_scale = randf_range(0.8, 1.2)
 			footstepSFX.play()
 			timer.start(0.25)
 	

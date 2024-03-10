@@ -49,8 +49,14 @@ func _input(event):
 	if event.is_action_pressed("quit"):
 		get_tree().quit()
 
+func isPlayerMoving(inputDir):
+	if is_on_floor() && inputDir != Vector2.ZERO:
+		return true
+	else:
+		return false
+
 func _physics_process(delta):
-	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backwards")
+	var inputDir = Input.get_vector("move_left", "move_right", "move_forward", "move_backwards")
 	
 	if Input.is_action_pressed("sprint"):
 		currentSpeed = lerp(currentSpeed, SPRINT_SPEED, delta * lerpSpeed)
@@ -74,7 +80,7 @@ func _physics_process(delta):
 		headBobCurrentIntensity = HEAD_BOB_WALK_INTENSITY
 		headBobIndex += HEAD_BOB_WALK_SPEED * delta
 	
-	if is_on_floor() && input_dir != Vector2.ZERO:
+	if isPlayerMoving(inputDir):
 		headBobVector.y = sin(headBobIndex)
 		headBobVector.x = sin(headBobIndex / 2) * 0.5
 		
@@ -85,7 +91,7 @@ func _physics_process(delta):
 		headBobber.position.x = lerp(headBobber.position.x, 0.0, delta * lerpSpeed)
 	
 	# Get the input direction and handle the movement/deceleration.
-	direction = lerp(direction,(transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized(), delta * lerpSpeed)
+	direction = lerp(direction,(transform.basis * Vector3(inputDir.x, 0, inputDir.y)).normalized(), delta * lerpSpeed)
 	if direction:
 		velocity.x = direction.x * currentSpeed
 		velocity.z = direction.z * currentSpeed
@@ -94,7 +100,7 @@ func _physics_process(delta):
 		velocity.z = move_toward(velocity.z, 0, currentSpeed)
 	
 	# footstep sounds
-	if Input.is_action_pressed("move_forward") or Input.is_action_pressed("move_backwards") or Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
+	if isPlayerMoving(inputDir):
 		if timer.time_left <= 0:
 			if sprinting:
 				footstepSFX.volume_db = randf_range(-12, -15)

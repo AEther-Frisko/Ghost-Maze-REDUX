@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="Ghost Maze REDUX"
-run/main_scene="res://Scenes/testLevel.tscn"
+run/main_scene="res://Scenes/Maps/Level0.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 InteractionManager="*res://Scenes/InteractionManager.tscn"
+SceneSwitcher="*res://Scripts/SceneSwitcher.gd"
 
 [display]
 

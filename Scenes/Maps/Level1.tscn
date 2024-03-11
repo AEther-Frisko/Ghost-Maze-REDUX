@@ -44,4 +44,4 @@ data = {
 }
 
 [node name="Door" parent="." instance=ExtResource("3_a6s7e")]
-transform = Transform3D(2, 0, 0, 0, 3, 0, 0, 0, 0.5, 0, 1.5, -11.7436)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, -11.9094)

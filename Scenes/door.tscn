@@ -1,21 +1,25 @@
-[gd_scene load_steps=5 format=3 uid="uid://v72k0rvdv86a"]
+[gd_scene load_steps=6 format=3 uid="uid://v72k0rvdv86a"]
 
 [ext_resource type="Script" path="res://Scripts/Door.gd" id="1_7e3ji"]
+[ext_resource type="ArrayMesh" uid="uid://dp8sc14hpqjsa" path="res://Assets/door_mesh.tres" id="1_dhkeo"]
 [ext_resource type="PackedScene" uid="uid://cnven61t4r1yc" path="res://Scenes/interactionArea.tscn" id="2_rq23g"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_istfn"]
+[ext_resource type="AudioStream" uid="uid://q8t4mcpbwrhx" path="res://Assets/door-open.ogg" id="4_dgk5q"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wlmk8"]
-size = Vector3(1, 1, 3)
+size = Vector3(2.15698, 4.56848, 2.17255)
 
 [node name="Door" type="MeshInstance3D"]
-transform = Transform3D(2, 0, 0, 0, 3, 0, 0, 0, 0.5, 0, 1.5, 0)
-mesh = SubResource("BoxMesh_istfn")
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = ExtResource("1_dhkeo")
 script = ExtResource("1_7e3ji")
 
 [node name="InteractionArea" parent="." instance=ExtResource("2_rq23g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.495913, 0)
 actionName = "enter"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0125732, 1.78424, 0.910492)
 shape = SubResource("BoxShape3D_wlmk8")
+
+[node name="DoorSounds" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_dgk5q")

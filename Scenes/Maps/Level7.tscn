@@ -44,10 +44,10 @@ data = {
 }
 
 [node name="Door" parent="." instance=ExtResource("3_g37bf")]
-transform = Transform3D(2, 0, 0, 0, 3, 0, 0, 0, 0.5, 0, 1.5, -11.7436)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, -11.908)
 
 [node name="Door2" parent="." instance=ExtResource("3_g37bf")]
-transform = Transform3D(-8.74228e-08, 0, 0.5, 0, 3, 0, -2, 0, -2.18557e-08, -5.745, 1.5, -4.5)
+transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, -5.90923, 0, -4.5)
 
 [node name="Door3" parent="." instance=ExtResource("3_g37bf")]
-transform = Transform3D(-8.74228e-08, 0, -0.5, 0, 3, 0, 2, 0, -2.18557e-08, 5.7383, 1.5, -4.5)
+transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 5.90756, 0, -4.5)

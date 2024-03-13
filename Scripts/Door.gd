@@ -9,6 +9,5 @@ func _ready():
 func _onInteract():
 	doorSFX.pitch_scale = randf_range(0.8, 1.2)
 	doorSFX.play()
-	await doorSFX.finished
 	var mapNumber = str(randi_range(1, 10))
 	SceneSwitcher.switchScene("res://Scenes/Maps/Level" + mapNumber + ".tscn")

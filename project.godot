@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 InteractionManager="*res://Scenes/InteractionManager.tscn"
 SceneSwitcher="*res://Scripts/SceneSwitcher.gd"
+TransitionScreen="*res://Scenes/transitionScreen.tscn"
 
 [display]
 

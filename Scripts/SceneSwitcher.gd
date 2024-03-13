@@ -7,6 +7,9 @@ func _ready():
 	#SceneSwitcher.switch_screen()
 
 func switchScene(resPath):
+	get_tree().paused = true
+	TransitionScreen.transition()
+	await TransitionScreen.onTransitionFinished
 	call_deferred("_deferredSwitchScene", resPath)
 
 func _deferredSwitchScene(resPath):
@@ -15,3 +18,4 @@ func _deferredSwitchScene(resPath):
 	currentScene = newScene.instantiate()
 	get_tree().root.add_child(currentScene)
 	get_tree().current_scene = currentScene
+	get_tree().paused = false

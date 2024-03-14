@@ -9,8 +9,10 @@ var interact: Callable = func():
 
 
 func _on_body_entered(_body):
+	# adds area to list of active areas
 	InteractionManager.registerArea(self)
 
 
 func _on_body_exited(_body):
+	# removes area from list of active areas
 	InteractionManager.unregisterArea(self)

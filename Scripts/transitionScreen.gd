@@ -6,16 +6,19 @@ extends CanvasLayer
 signal onTransitionFinished
 
 func _ready():
+	# hides transition screen
 	colourRect.visible = false
-	animPlayer.animation_finished.connect(_onAnimationFinished)
 
 func transition():
+	# showa transition screen and plays the fade in animation
 	colourRect.visible = true
 	animPlayer.play("fadeIn")
 
-func _onAnimationFinished(animName):
-	if (animName == "fadeIn"):
+func _on_animation_player_animation_finished(anim_name):
+	if (anim_name == "fadeIn"):
+		# emits signal that animation finished and fades out
 		onTransitionFinished.emit()
 		animPlayer.play("fadeOut")
-	if (animName == "fadeOut"):
+	if (anim_name == "fadeOut"):
+		# hides transition screen
 		colourRect.visible = false

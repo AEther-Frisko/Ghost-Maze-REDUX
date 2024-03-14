@@ -32,10 +32,13 @@ var headBobVector = Vector2.ZERO
 var headBobIndex = 0.0
 var headBobCurrentIntensity = 0.0
 
+@export var playerStats = preload("res://Resources/DefaultStats.tres")
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready():
+	# hides mouse and locks to screen while in window
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _input(event):

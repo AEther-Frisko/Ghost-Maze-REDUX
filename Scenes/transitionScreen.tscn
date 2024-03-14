@@ -72,3 +72,5 @@ color = Color(0.0313726, 0.0862745, 0.00784314, 0)
 libraries = {
 "": SubResource("AnimationLibrary_pqsq6")
 }
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

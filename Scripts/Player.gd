@@ -102,23 +102,22 @@ func _physics_process(delta: float) -> void:
 		state_op.WALKING:
 			headBobCurrentIntensity = HEAD_BOB_WALK_INTENSITY
 			headBobIndex += HEAD_BOB_WALK_SPEED * delta
-	match state:
-		not state_op.IDLE:
-			headBobVector.y = sin(headBobIndex)
-			headBobVector.x = sin(headBobIndex / 2) * 0.5
+	if not state_op.IDLE:
+		headBobVector.y = sin(headBobIndex)
+		headBobVector.x = sin(headBobIndex / 2) * 0.5
 			
-			headBobber.position.y = lerp(headBobber.position.y, headBobVector.y * (headBobCurrentIntensity/ 2.0), delta * move_stats.lerp_speed)
-			headBobber.position.x = lerp(headBobber.position.x, headBobVector.x * headBobCurrentIntensity, delta * move_stats.lerp_speed)
+		headBobber.position.y = lerp(headBobber.position.y, headBobVector.y * (headBobCurrentIntensity/ 2.0), delta * move_stats.lerp_speed)
+		headBobber.position.x = lerp(headBobber.position.x, headBobVector.x * headBobCurrentIntensity, delta * move_stats.lerp_speed)
 			
-			# adding extra movement to flashlight
-			flashlight.rotation.y = lerp(flashlight.rotation.y, headBobVector.y * (headBobCurrentIntensity / 3.0), delta * move_stats.lerp_speed)
-			flashlight.rotation.x = lerp(flashlight.rotation.x, headBobVector.x * (headBobCurrentIntensity), delta * move_stats.lerp_speed)
-		state_op.IDLE:
-			headBobber.position.y = lerp(headBobber.position.y, 0.0, delta * move_stats.lerp_speed)
-			headBobber.position.x = lerp(headBobber.position.x, 0.0, delta * move_stats.lerp_speed)
-			
-			flashlight.rotation.y = lerp(flashlight.rotation.y, 0.0, delta * move_stats.lerp_speed)
-			flashlight.rotation.x = lerp(flashlight.rotation.x, 0.0, delta * move_stats.lerp_speed)
+		# adding extra movement to flashlight
+		flashlight.rotation.y = lerp(flashlight.rotation.y, headBobVector.y * (headBobCurrentIntensity / 3.0), delta * move_stats.lerp_speed)
+		flashlight.rotation.x = lerp(flashlight.rotation.x, headBobVector.x * (headBobCurrentIntensity), delta * move_stats.lerp_speed)
+	else:
+		headBobber.position.y = lerp(headBobber.position.y, 0.0, delta * move_stats.lerp_speed)
+		headBobber.position.x = lerp(headBobber.position.x, 0.0, delta * move_stats.lerp_speed)
+		
+		flashlight.rotation.y = lerp(flashlight.rotation.y, 0.0, delta * move_stats.lerp_speed)
+		flashlight.rotation.x = lerp(flashlight.rotation.x, 0.0, delta * move_stats.lerp_speed)
 	
 	# footstep sounds
 	if footstepTimer.time_left <= 0 and state != state_op.IDLE:

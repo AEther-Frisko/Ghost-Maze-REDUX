@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="MeterStats" load_steps=2 format=3 uid="uid://c8kfbetdm2ops"]
+
+[ext_resource type="Script" path="res://Resources/meter_stats.gd" id="1_tysng"]
+
+[resource]
+script = ExtResource("1_tysng")
+max_value = 100.0
+value = 100.0
+charge_rate = 2.0
+value_cooldown = 1.5

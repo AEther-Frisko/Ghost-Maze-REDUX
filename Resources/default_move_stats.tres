@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SprintMoveStats" load_steps=2 format=3 uid="uid://bewdbbctuksts"]
+
+[ext_resource type="Script" path="res://Resources/sprint_move_stats.gd" id="1_pldmf"]
+
+[resource]
+script = ExtResource("1_pldmf")
+walk_speed = 4.0
+sprint_speed = 8.0
+speed = 0.0

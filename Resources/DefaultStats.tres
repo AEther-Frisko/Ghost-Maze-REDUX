@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="PlayerStats" load_steps=2 format=3 uid="uid://cjfr80hljj43a"]
-
-[ext_resource type="Script" path="res://Scripts/PlayerStats.gd" id="1_12s4p"]
-
-[resource]
-script = ExtResource("1_12s4p")
-maxHealth = 3
-currentHealth = 3
-roomReached = 0

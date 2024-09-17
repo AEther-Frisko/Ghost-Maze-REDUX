@@ -1,26 +1,30 @@
-[gd_scene load_steps=6 format=3 uid="uid://v72k0rvdv86a"]
+[gd_scene load_steps=8 format=3 uid="uid://v72k0rvdv86a"]
 
-[ext_resource type="Script" path="res://Scripts/Door.gd" id="1_7e3ji"]
 [ext_resource type="ArrayMesh" uid="uid://dp8sc14hpqjsa" path="res://Assets/door_mesh.tres" id="1_dhkeo"]
-[ext_resource type="PackedScene" uid="uid://cnven61t4r1yc" path="res://Scenes/interactionArea.tscn" id="2_rq23g"]
+[ext_resource type="Script" path="res://Scripts/door.gd" id="2_1vch0"]
+[ext_resource type="Resource" uid="uid://bqw48d8bel8w7" path="res://Resources/player_room_stats.tres" id="3_2h4qk"]
+[ext_resource type="PackedScene" uid="uid://lrwmtif8y4f3" path="res://Scenes/interaction_area.tscn" id="3_j050r"]
 [ext_resource type="AudioStream" uid="uid://q8t4mcpbwrhx" path="res://Assets/door-open.ogg" id="4_dgk5q"]
+[ext_resource type="Script" path="res://Components/varying_pitch_audio_player.gd" id="5_lxc5f"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_wlmk8"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_q36ug"]
 size = Vector3(2.15698, 4.56848, 2.17255)
 
 [node name="Door" type="MeshInstance3D"]
 process_mode = 3
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 mesh = ExtResource("1_dhkeo")
-script = ExtResource("1_7e3ji")
+script = ExtResource("2_1vch0")
+room_stats = ExtResource("3_2h4qk")
 
-[node name="InteractionArea" parent="." instance=ExtResource("2_rq23g")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.495913, 0)
-actionName = "enter"
+[node name="InteractionArea" parent="." instance=ExtResource("3_j050r")]
+action_name = "open door"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0125732, 1.78424, 0.910492)
-shape = SubResource("BoxShape3D_wlmk8")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0125732, 2.28015, 0.910492)
+shape = SubResource("BoxShape3D_q36ug")
 
-[node name="DoorSounds" type="AudioStreamPlayer" parent="."]
+[node name="DoorSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_dgk5q")
+bus = &"SFX"
+script = ExtResource("5_lxc5f")

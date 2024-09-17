@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=3 uid="uid://bm71s4di3a7tj"]
+
+[ext_resource type="ArrayMesh" uid="uid://dp8sc14hpqjsa" path="res://Assets/door_mesh.tres" id="1_oeax4"]
+[ext_resource type="PackedScene" uid="uid://lrwmtif8y4f3" path="res://Scenes/interaction_area.tscn" id="2_gnyrf"]
+[ext_resource type="Script" path="res://Scripts/fake_door.gd" id="2_vk12i"]
+[ext_resource type="Script" path="res://Components/varying_pitch_audio_player.gd" id="4_2q3y8"]
+[ext_resource type="AudioStream" uid="uid://bb6uk44ogkupo" path="res://Assets/locked_door.ogg" id="4_vyjkf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ilii0"]
+size = Vector3(2.15698, 4.56848, 2.17255)
+
+[node name="FakeDoor" type="MeshInstance3D"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = ExtResource("1_oeax4")
+script = ExtResource("2_vk12i")
+
+[node name="InteractionArea" parent="." instance=ExtResource("2_gnyrf")]
+action_name = "open door"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0125732, 2.28015, 0.910492)
+shape = SubResource("BoxShape3D_ilii0")
+
+[node name="DoorSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_vyjkf")
+volume_db = -5.0
+bus = &"SFX"
+script = ExtResource("4_2q3y8")

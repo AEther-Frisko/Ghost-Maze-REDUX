@@ -1,0 +1,74 @@
+[gd_scene load_steps=8 format=3 uid="uid://bvkiaoihof13n"]
+
+[ext_resource type="Script" path="res://Scripts/stats_ui.gd" id="1_p8vbf"]
+[ext_resource type="Resource" uid="uid://bqw48d8bel8w7" path="res://Resources/player_room_stats.tres" id="2_w6hgb"]
+[ext_resource type="Resource" uid="uid://bumgyqi7futl2" path="res://Resources/player_stamina_stats.tres" id="3_bebk7"]
+[ext_resource type="Resource" uid="uid://dugkyhknifays" path="res://Resources/player_health_stats.tres" id="4_se5ha"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pqd0l"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7amgr"]
+bg_color = Color(0.509804, 0.188235, 0.164706, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ctjkn"]
+bg_color = Color(0.239216, 0.45098, 0.231373, 1)
+
+[node name="StatsUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_p8vbf")
+room_stats = ExtResource("2_w6hgb")
+stamina_stats = ExtResource("3_bebk7")
+health_stats = ExtResource("4_se5ha")
+
+[node name="roomDisplay" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -25.0
+offset_right = 25.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Room:"
+horizontal_alignment = 1
+
+[node name="healthBar" type="ProgressBar" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = -129.0
+offset_right = 14.0
+offset_bottom = -7.0
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxEmpty_pqd0l")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7amgr")
+step = 0.0
+value = 75.0
+fill_mode = 3
+show_percentage = false
+
+[node name="staminaBar" type="ProgressBar" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 17.0
+offset_top = -113.0
+offset_right = 25.0
+offset_bottom = -7.0
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxEmpty_pqd0l")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ctjkn")
+step = 0.0
+value = 75.0
+fill_mode = 3
+show_percentage = false

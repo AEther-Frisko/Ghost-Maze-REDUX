@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="RoomStats" load_steps=2 format=3 uid="uid://bqw48d8bel8w7"]
+
+[ext_resource type="Script" path="res://Resources/room_stats.gd" id="2_o64wk"]
+
+[resource]
+script = ExtResource("2_o64wk")
+room_number = 0
+current_room = "res://Scenes/Maps/Level_0.tscn"
+high_score = 0

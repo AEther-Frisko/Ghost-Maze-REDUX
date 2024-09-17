@@ -1,18 +1,40 @@
-[gd_scene load_steps=4 format=3 uid="uid://jxetrlasay4o"]
+[gd_scene load_steps=15 format=3 uid="uid://jxetrlasay4o"]
 
-[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_wksdf"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_wksdf"]
 [ext_resource type="AudioStream" uid="uid://c6jucer67nbr" path="res://Assets/footsteps.ogg" id="2_olhqe"]
+[ext_resource type="Script" path="res://Components/move_component.gd" id="3_d4r5b"]
+[ext_resource type="Resource" uid="uid://dugkyhknifays" path="res://Resources/player_health_stats.tres" id="4_5cmpe"]
+[ext_resource type="Script" path="res://Components/move_input_component.gd" id="4_5lvow"]
+[ext_resource type="Script" path="res://Components/state_component.gd" id="4_xv7ig"]
+[ext_resource type="AudioStream" uid="uid://ciafdg7eb3vpc" path="res://Assets/flashlight-button.ogg" id="5_0hweg"]
+[ext_resource type="Resource" uid="uid://duig6pmp3hagt" path="res://Resources/player_move_stats.tres" id="5_gchdk"]
+[ext_resource type="Script" path="res://Components/varying_pitch_audio_player.gd" id="5_s4i70"]
+[ext_resource type="Script" path="res://Components/sprint_component.gd" id="6_pivn1"]
+[ext_resource type="Script" path="res://Components/meter_component.gd" id="7_4egy0"]
+[ext_resource type="Resource" uid="uid://bumgyqi7futl2" path="res://Resources/player_stamina_stats.tres" id="8_0lmf1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_edpa3"]
-height = 1.7
+radius = 0.384643
+height = 1.38404
 
-[node name="Player" type="CharacterBody3D" groups=["player"]]
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_fcnn2"]
+length = 0.849401
+
+[node name="Player" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 2
 script = ExtResource("1_wksdf")
+move_stats = ExtResource("5_gchdk")
+stamina_stats = ExtResource("8_0lmf1")
+health_stats = ExtResource("4_5cmpe")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="BodyCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.212293, 0)
 shape = SubResource("CapsuleShape3D_edpa3")
+
+[node name="LegsCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("SeparationRayShape3D_fcnn2")
 
 [node name="Head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
@@ -21,16 +43,66 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head/HeadBobber"]
 
-[node name="SpotLight3D" type="SpotLight3D" parent="Head/HeadBobber"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00514698, 0.208941)
-light_color = Color(0.639216, 0.670588, 0, 1)
+[node name="Flashlight" type="SpotLight3D" parent="Head/HeadBobber"]
+unique_name_in_owner = true
+transform = Transform3D(0.99798, 0.000352524, -0.0635369, -0.00320238, 0.998993, -0.0447573, 0.0634572, 0.0448703, 0.996975, -0.368644, -0.585735, -0.0301565)
+light_color = Color(0.67451, 0.74902, 0.494118, 1)
 light_energy = 1.5
-spot_range = 6.63417
-spot_angle = 35.4303
+spot_range = 5.51347
+spot_angle = 27.8444
+
+[node name="FlashlightSFX" type="AudioStreamPlayer" parent="Head/HeadBobber/Flashlight"]
+unique_name_in_owner = true
+stream = ExtResource("5_0hweg")
+volume_db = -5.0
+bus = &"SFX"
 
 [node name="Footsteps" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_olhqe")
-volume_db = -15.0
+bus = &"SFX"
+script = ExtResource("5_s4i70")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="footstepTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="MoveInputComponent" type="Node" parent="." node_paths=PackedStringArray("move_component")]
+script = ExtResource("4_5lvow")
+move_component = NodePath("../MoveComponent")
+move_stats = ExtResource("5_gchdk")
+
+[node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
+script = ExtResource("3_d4r5b")
+actor = NodePath("..")
+
+[node name="States" type="Node" parent="."]
+
+[node name="Sprinting" type="Node" parent="States"]
+unique_name_in_owner = true
+script = ExtResource("4_xv7ig")
+
+[node name="SprintComponent" type="Node" parent="States/Sprinting" node_paths=PackedStringArray("move_input", "actor")]
+unique_name_in_owner = true
+script = ExtResource("6_pivn1")
+move_stats = ExtResource("5_gchdk")
+move_input = NodePath("../../../MoveInputComponent")
+actor = NodePath("../../..")
+
+[node name="StaminaRecharge" type="Node" parent="States"]
+unique_name_in_owner = true
+script = ExtResource("4_xv7ig")
+
+[node name="StaminaComponent" type="Node" parent="States/StaminaRecharge" node_paths=PackedStringArray("actor")]
+unique_name_in_owner = true
+script = ExtResource("7_4egy0")
+actor = NodePath("../../..")
+meter_stats = ExtResource("8_0lmf1")
+
+[node name="HealthRecharge" type="Node" parent="States"]
+unique_name_in_owner = true
+script = ExtResource("4_xv7ig")
+
+[node name="HealthComponent" type="Node" parent="States/HealthRecharge" node_paths=PackedStringArray("actor")]
+unique_name_in_owner = true
+script = ExtResource("7_4egy0")
+actor = NodePath("../../..")
+meter_stats = ExtResource("4_5cmpe")
